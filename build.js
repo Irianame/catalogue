@@ -67,23 +67,26 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+const sayHello = __webpack_require__( 1 );
 
+__webpack_require__( 2 );
 
-var sayHello = __webpack_require__(1);
-
-sayHello('Иван Иванов', document.querySelector('h2'));
+sayHello( 'Иван Иванов', document.querySelector( 'h2' ) );
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-module.exports = function (name, element) {
+module.exports = function( name, element )
+{
   element.textContent = 'Привет, ' + name + '!';
 };
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

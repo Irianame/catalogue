@@ -1,13 +1,15 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
 
 module.exports = {
-  entry : './main.js',
+  entry : {main: ['./app/main.js', './app/styles/main.scss']},
   output: {
-    filename: 'build.js'
+  	path: './build',
+    filename: '/js/[name].js'
   },
   watch: true,
   module: {
-    loaders: [
+    rules: [
 	    {
 	    	test   : /\.js$/,
 	        exclude: /node_modules/,
@@ -15,19 +17,33 @@ module.exports = {
 	        query  : {
 	          presets: [ 'es2015' ]
 	        }
+	    },
+	    {
+	    	test   : /\.js$/,
+	    	exclude: /node_modules/,
+	    	loader : 'jshint-loader',
+	    	options: {
+	    		esversion: 6
+	    	}
+	    },
+	    {
+	        test: /\.scss$/,
+	        loader: ExtractTextPlugin.extract({
+	          fallback: "style-loader",
+	          loader: "css-loader!sass-loader"
+	        })
+	      },
+	    {
+	        test: /\.css$/,
+	        loader: "style-loader!css-loader"
 	    }
-    ],
-    rules: [
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader!sass-loader"
-        })
-      }
     ]
   },
   plugins: [
-		new ExtractTextPlugin("./styles/styles.css"),
-	]
+		new ExtractTextPlugin(
+		{
+			filename: "/css/[name].css", 
+		    allChunks: true
+		})
+  ]
 };

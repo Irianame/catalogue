@@ -1,3 +1,10 @@
-import angular from 'angular';
 import '../build/css/main.css';
-var ngModule = angular.module('app', []);
+
+import angular from 'angular';
+import uirouter from 'angular-ui-router';
+import routing from './routing';
+
+import mainTable from './components/main-table/main-table.component';
+
+angular.module('app', [uirouter, mainTable])
+.config(routing);
